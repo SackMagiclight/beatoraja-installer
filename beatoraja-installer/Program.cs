@@ -158,6 +158,21 @@ namespace beatoraja_installer
                     });
                 }
             }
+
+            FileDownloader.DownloadFileFromURLToPath($"https://drive.google.com/uc?id=1GB-pVfUlt36dXNUoTyQJLP7fSAfAz2-G", @"litone5_patch.rar");
+
+            Console.Out.WriteLine("Unzip LITONE5 patch...");
+            using (var archive = RarArchive.Open(@"litone5_patch.rar"))
+            {
+                foreach (var entry in archive.Entries.Where(entry => !entry.IsDirectory))
+                {
+                    entry.WriteToDirectory(@"beatoraja0.6.1/skin", new ExtractionOptions()
+                    {
+                        ExtractFullPath = true,
+                        Overwrite = true
+                    });
+                }
+            }
         }
     }
 }
